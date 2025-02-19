@@ -1,8 +1,8 @@
 "use client";
 
 import FlipCard from "@/components/FlipCard";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper-bundle.css';
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper-bundle.css";
 
 export default function Home() {
   const TD = [
@@ -41,12 +41,14 @@ export default function Home() {
   ];
 
   return (
-    <Swiper spaceBetween={50} slidesPerView={1} touchEventsTarget="container">
-      {TD.map((item, index) => (
-        <SwiperSlide key={index}>
-          <FlipCard frontContent={item.frontContent} backContent={item.backContent} />
-        </SwiperSlide>
-      ))}
-    </Swiper>
+    <>
+      <Swiper spaceBetween={50} slidesPerView={1} touchEventsTarget="container">
+        {TD.map((item, index) => (
+          <SwiperSlide key={index}>
+            <FlipCard frontContent={item.frontContent} backContent={item.backContent} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </>
   );
 }
