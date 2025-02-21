@@ -18,7 +18,10 @@ const FlipCard: React.FC<FlipCardProps> = ({ frontContent, backContent }) => {
   return (
     <CardContainer onClick={handleClick}>
       <CardInner $isFlipped={isFlipped}>
-        <CardFront>{frontContent}</CardFront>
+        <CardFront>
+          {frontContent}
+          <div>클릭해서 뒤집기</div>
+        </CardFront>
         <CardBack>{backContent}</CardBack>
       </CardInner>
     </CardContainer>
@@ -57,6 +60,10 @@ const CardSide = styled.div`
 `;
 
 const CardFront = styled(CardSide)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background-color: #00b388;
   color: white;
 `;

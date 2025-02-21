@@ -1,5 +1,6 @@
-import Sidebar from "@/components/Sidebar";
-import SidebarButton from "@/components/SidebarButton";
+import Sidebar from "@/components/ui/sidebar/Sidebar";
+import SidebarButton from "@/components/ui/sidebar/SidebarButton";
+import ThemeProviderWrapper from "@/components/wrapper/ThemeProviderWrapper";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -13,11 +14,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ko">
       <body>
-        <Sidebar />
-        <SidebarButton />
-        {children}
+        <ThemeProviderWrapper>
+          <Sidebar />
+          <SidebarButton />
+          {children}
+        </ThemeProviderWrapper>
       </body>
     </html>
   );
