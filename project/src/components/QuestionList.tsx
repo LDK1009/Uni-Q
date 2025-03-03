@@ -1,16 +1,14 @@
-import React from 'react';
-import { useQuestionsStore } from '../store';
+"use client";
+
 import QuestionItem from './QuestionItem';
 import styled from 'styled-components';
+import { Question } from '@/types/Question';
 
+interface QuestionListProps {
+  questions: Question[];
+}
 
-
-const QuestionList: React.FC = () => {
-  const { questions, fetchQuestions } = useQuestionsStore();
-
-  React.useEffect(() => {
-    fetchQuestions(); // 데이터 패칭
-  }, [fetchQuestions]);
+const QuestionList = ({ questions } : QuestionListProps) => {
 
   if (questions.length === 0) {
     return <p>질문이 없습니다.</p>; // 질문이 없을 경우 메시지 표시
@@ -27,6 +25,6 @@ const QuestionList: React.FC = () => {
 
 export default QuestionList; 
 
-const ListContainer = styled.div`
+const ListContainer = styled('div')`
   padding: 16px;
 `;

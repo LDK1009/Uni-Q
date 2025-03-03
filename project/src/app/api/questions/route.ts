@@ -2,7 +2,23 @@ import { NextResponse } from "next/server";
 import { supabase } from "@/lib/supabaseClient";
 import { Question } from "../../../types/Question";
 
-export async function GET() {
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  console.log("searchParams", searchParams);
+  const id = searchParams.get("id");
+
+  if (id) {
+    const { data, error } = await supabase.from("questions").select("*").eq("id", id).single();
+    
+    if (error) {
+      const response = NextResponse.json(null, { status: 500 });
+      response.headers.set("X-Error-Message", error.message);
+      return response;
+    }
+
+    return NextResponse.json(data, { status: 200 });
+  }
+
   const { data, error } = await supabase.from("questions").select("*");
   
   if (error) {

@@ -1,12 +1,16 @@
-"use client";
+// import QuestionList from "@/components/QuestionList";
+// import api from "@/lib/apiClient";
+// import TestBox from "@/components/TestBox";
+import TestBox from "@/components/TestBox";
 
-import QuestionList from "@/components/QuestionList";
+export default async function Home() {
+  // const response = await api.get("questions");
+  // const questions = response.data;
 
-
-export default function Home() {
   return (
-    <>
-      <QuestionList />
-    </>
+    <div>
+      <TestBox />
+      {/* <QuestionList questions={questions} /> */}
+    </div>
   );
 }

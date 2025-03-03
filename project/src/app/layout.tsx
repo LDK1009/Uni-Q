@@ -1,7 +1,6 @@
-import Sidebar from "@/components/ui/sidebar/Sidebar";
-import SidebarButton from "@/components/ui/sidebar/SidebarButton";
-import ThemeProviderWrapper from "@/components/wrapper/ThemeProviderWrapper";
+import ThemeProviderWrapper from "@/styles/ThemeProviderWrapper";
 import type { Metadata } from "next";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 
 export const metadata: Metadata = {
   title: "데브카드(DevCard) | 개발자 면접 준비를 위한 면접질문 카드",
@@ -16,11 +15,11 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-        <ThemeProviderWrapper>
-          <Sidebar />
-          <SidebarButton />
-          {children}
-        </ThemeProviderWrapper>
+        <AppRouterCacheProvider>
+            <ThemeProviderWrapper>
+              {children}
+            </ThemeProviderWrapper>
+        </AppRouterCacheProvider>
       </body>
     </html>
   );
