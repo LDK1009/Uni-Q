@@ -3,7 +3,7 @@ export interface Question {
     major: string;
     category: string;
     question: string;
-    gptAnswer: string;
+    gpt_answer: string;
     tags: string[];
     reference_links: string[];
     created_at?: string;

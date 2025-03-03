@@ -1,5 +1,5 @@
 import QuestionItem from "@/components/QuestionItem";
-import api from "@/lib/apiClient";
+import { getQuestionById } from "@/service/table/questions";
 
 interface QuestionPageProps {
   params: {
@@ -10,12 +10,11 @@ interface QuestionPageProps {
 export default async function QuestionPage({ params }: QuestionPageProps) {
   const { id } = params;
 
-  const response = await api.get(`questions?id=${id}`);
-  const data = response.data;
+  const { data } = await getQuestionById(Number(id));
 
   return (
     <>
-      <QuestionItem question={data} />
+      <QuestionItem itemData={data} />
     </>
   );
 }
