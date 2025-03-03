@@ -1,10 +1,11 @@
 export interface Question {
-    id: number;
+    id?: number;
+    major: string;
     category: string;
-    content: string;
+    question: string;
+    gptAnswer: string;
     tags: string[];
-    scrapped_users: string[];
     reference_links: string[];
-    created_at: string; // ISO 8601 형식의 날짜 문자열
-    owner_id: string; // UUID 형식
-} 
+    created_at?: string;
+    owner_id?: string;
+  }
