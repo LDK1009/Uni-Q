@@ -5,7 +5,7 @@ import api from "@/lib/apiClient";
 import QuestionItem from "./QuestionItem";
 
 const QuestionDetail: React.FC<{ id: string }> = ({ id }) => {
-  const [question, setQuestion] = useState(null);
+  const [question, setQuestion] = useState();
 
   useEffect(() => {
     const fetchQuestion = async () => {
@@ -26,7 +26,7 @@ const QuestionDetail: React.FC<{ id: string }> = ({ id }) => {
 
   return (
     <div>
-      <QuestionItem question={question} />
+      <QuestionItem itemData={question}/>
     </div>
   );
 };

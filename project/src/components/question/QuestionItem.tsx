@@ -81,7 +81,9 @@ const QuestionItem = ({ itemData }: { itemData: Question }) => {
       {/* 아코디언 */}
       <GptAnswerAccordion expanded={isAccordionOpen} onClick={() => setIsAccordionOpen((prev) => !prev)}>
         <AccordionSummary expandIcon={<ExpandMoreOutlinedIcon />} aria-controls="panel1-content" id="panel1-header">
-          <Typography component="span" sx={{ fontWeight: 'bold' }}>GPT 모범답안</Typography>
+          <Typography component="span" sx={{ fontWeight: "bold" }}>
+            GPT 모범답안
+          </Typography>
         </AccordionSummary>
         <AccordionDetails>
           {breakByDot(gpt_answer).map((el, idx) => {
