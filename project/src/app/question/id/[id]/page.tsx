@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: QuestionPageProps): Promise<M
 }
 
 export default async function QuestionPage({ params }: QuestionPageProps) {
-  const { id } = params;
+  const { id } = await params;
 
   const { data } = await getQuestionById(Number(id));
 
