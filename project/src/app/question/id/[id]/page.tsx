@@ -10,7 +10,7 @@ interface QuestionPageProps {
 
 // 동적 메타데이터 설정
 export async function generateMetadata({ params }: QuestionPageProps): Promise<Metadata> {
-  const { id } = params;
+  const { id } = await params;
   const { data } = await getQuestionById(Number(id));
 
   return {

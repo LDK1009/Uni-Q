@@ -94,7 +94,7 @@ const QuestionItem = ({ itemData }: { itemData: Question }) => {
       <ReferenceLinksContainer>
         {ogDatas.map((el, index) => (
           <ReferenceLinkContainer key={index} href={el.link} target="_blank">
-            <ReferenceImage src={el.image} alt="" width={100} height={100} />
+            <ReferenceImage src={el.image ? el.image : "/img/reference-image.png"} alt="" width={100} height={100} />
             <ReferenceLinkIconTextWrap>
               <InsertLinkOutlinedIcon />
               {el.title}
@@ -201,7 +201,7 @@ const GptAnswerAccordion = styled(Accordion)`
 `;
 
 const ReferenceLinksContainer = styled("div")`
-  ${mixinFlex("row")};
+  ${mixinFlex("column")};
   flex-wrap: wrap;
   width: 100%;
   row-gap: 16px;

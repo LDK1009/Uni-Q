@@ -14,42 +14,42 @@ const page = () => {
   }
 
   printUid();
-  
-  // 대량 데이터 예시
-  const data = 
-    [
-      {
-        college: "공과대학",
-        major: "컴퓨터공학과",
-        category: "전공기초지식",
-        question: "객체 지향 프로그래밍의 기본 개념을 설명해주세요.",
-        gpt_answer: "객체 지향 프로그래밍(OOP)은 데이터를 객체라는 단위로 묶어 처리하는 프로그래밍 패러다임입니다. 주요 개념으로는 추상화, 캡슐화, 상속, 다형성이 있으며, 이를 통해 코드의 재사용성과 유지보수성을 높일 수 있습니다.",
-        tags: ["객체 지향", "프로그래밍", "OOP", "컴퓨터공학", "소프트웨어 개발"],
-        reference_links: ["https://blog.naver.com/PostView.nhn?blogId=dev_tips&logNo=2345678901"]
-      },
-      {
-        college: "공과대학",
-        major: "컴퓨터공학과",
-        category: "전공기초지식",
-        question: "데이터베이스 정규화의 목적과 과정에 대해 설명해주세요.",
-        gpt_answer: "데이터베이스 정규화는 데이터 중복을 최소화하고 무결성을 유지하기 위해 데이터베이스 구조를 체계적으로 조직하는 과정입니다. 주요 단계로 1NF, 2NF, 3NF 등이 있으며, 각 단계에서 특정 규칙을 만족하도록 테이블을 분해합니다.",
-        tags: ["데이터베이스", "정규화", "1NF", "2NF", "3NF"],
-        reference_links: ["https://blog.naver.com/PostView.nhn?blogId=database_master&logNo=3456789012"]
-      },
-      {
-        college: "공과대학",
-        major: "컴퓨터공학과",
-        category: "전공기초지식",
-        question: "스택과 큐의 차이점과 활용 사례를 설명해주세요.",
-        gpt_answer: "스택은 후입선출(LIFO) 구조로, 마지막에 들어간 데이터가 먼저 나오는 구조입니다. 반면, 큐는 선입선출(FIFO) 구조로, 먼저 들어간 데이터가 먼저 나옵니다. 스택은 함수 호출 시의 스택 메모리 관리에, 큐는 프로세스 스케줄링 등에 활용됩니다.",
-        tags: ["스택", "큐", "데이터 구조", "LIFO", "FIFO"],
-        reference_links: ["https://blog.naver.com/PostView.nhn?blogId=algorithm_expert&logNo=4567890123"]
-      },
-      
 
-    
-]
-  
+  const data = [
+    {
+      college: "공과대학",
+      major: "컴퓨터공학과",
+      category: "전공기초지식",
+      question: "가비지 컬렉션의 개념과 그 작동 방식에 대해 설명해주세요.",
+      gpt_answer:
+        "가비지 컬렉션은 프로그래밍 언어에서 더 이상 사용되지 않는 메모리를 자동으로 회수하는 기능입니다. 이를 통해 메모리 누수를 방지하고, 개발자가 메모리 관리를 직접 하지 않아도 되도록 합니다.",
+      tags: ["가비지 컬렉션", "메모리 관리", "컴퓨터공학"],
+      reference_links: ["https://ko.wikipedia.org/wiki/가비지_컬렉션"],
+      owner_id: "a4632837-1a0d-4cb1-835f-dd3a1f78740b",
+    },
+    {
+      college: "공과대학",
+      major: "컴퓨터공학과",
+      category: "전공기초지식",
+      question: "동기식 및 비동기식 통신의 차이점에 대해 설명해주세요.",
+      gpt_answer:
+        "동기식 통신은 송수신 장치의 클럭 신호를 동기화하여 데이터를 전송하는 방식이며, 비동기식 통신은 각 데이터 비트에 시작 및 종료 비트를 추가하여 독립적으로 전송하는 방식입니다.",
+      tags: ["동기식 통신", "비동기식 통신", "컴퓨터공학"],
+      reference_links: ["https://ko.wikipedia.org/wiki/동기식_통신", "https://ko.wikipedia.org/wiki/비동기식_통신"],
+      owner_id: "a4632837-1a0d-4cb1-835f-dd3a1f78740b",
+    },
+    {
+      college: "공과대학",
+      major: "컴퓨터공학과",
+      category: "전공기초지식",
+      question: "소켓 프로그래밍이란 무엇이며, 어떻게 동작하나요?",
+      gpt_answer:
+        "소켓 프로그래밍은 네트워크 상에서 데이터 통신을 위해 소켓을 사용하여 프로세스 간의 통신을 구현하는 방법입니다. 클라이언트와 서버가 각각 소켓을 통해 데이터를 송수신합니다.",
+      tags: ["소켓 프로그래밍", "네트워크", "컴퓨터공학"],
+      reference_links: ["https://ko.wikipedia.org/wiki/소켓_프로그래밍"],
+      owner_id: "a4632837-1a0d-4cb1-835f-dd3a1f78740b",
+    },
+  ];
 
   return (
     <div>
