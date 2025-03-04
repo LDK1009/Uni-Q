@@ -1,14 +1,11 @@
 import QuestionList from "@/components/question/QuestionList";
 import { getQuestionByMajor } from "@/service/table/questions";
 
-interface PagePropsType {
-  params: {
-    major: string;
-  };
-}
+type PropsType = Promise<{ major : string; }>
 
-const page = async ({ params }: PagePropsType) => {
-  const parameters = params;
+
+const page = async ({ params }:  { params: PropsType }) => {
+  const parameters = await params;
   const major = decodeURIComponent(parameters.major);
   const { data } = await getQuestionByMajor(major);
 
