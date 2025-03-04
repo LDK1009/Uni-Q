@@ -1,6 +1,5 @@
-import QuestionItem from "@/components/question/QuestionItem";
+import QuestionList from "@/components/question/QuestionList";
 import { getQuestionByMajor } from "@/service/table/questions";
-import { Divider } from "@mui/material";
 
 interface PagePropsType {
   params: {
@@ -15,12 +14,13 @@ const page = async ({ params }: PagePropsType) => {
 
   return (
     <div>
-      {data?.map((el, idx) => (
+      <QuestionList data={data as []}/>
+      {/* {data?.map((el, idx) => (
         <div key={idx}>
           <QuestionItem itemData={el} />
           <Divider />
         </div>
-      ))}
+      ))} */}
     </div>
   );
 };

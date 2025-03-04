@@ -1,30 +1,22 @@
 "use client";
 
-import { styled } from '@mui/material';
-import QuestionItem from './QuestionItem';
-import { Question } from '@/types/Question';
+import { Question } from "@/types/Question";
+import QuestionItem from "./QuestionItem";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css"; // 기본 스타일 적용
 
-interface QuestionListProps {
-  questions: Question[];
-}
-
-const QuestionList = ({ questions } : QuestionListProps) => {
-
-  if (questions.length === 0) {
-    return <p>질문이 없습니다.</p>; // 질문이 없을 경우 메시지 표시
-  }
-
+const QuestionList = ({ data }: { data: Question[] }) => {
   return (
-    <ListContainer>
-      {questions.map((question) => (
-        <QuestionItem key={question.id} question={question} />
-      ))}
-    </ListContainer>
+    <div>
+      <Swiper spaceBetween={50} slidesPerView={1}>
+        {data?.map((el, idx) => (
+          <SwiperSlide key={idx}>
+            <QuestionItem itemData={el} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
   );
 };
 
-export default QuestionList; 
-
-const ListContainer = styled('div')`
-  padding: 16px;
-`;
+export default QuestionList;
