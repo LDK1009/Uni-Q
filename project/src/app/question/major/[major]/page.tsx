@@ -8,7 +8,7 @@ interface PagePropsType {
 }
 
 const page = async ({ params }: PagePropsType) => {
-  const parameters = await params;
+  const parameters = params;
   const major = decodeURIComponent(parameters.major);
   const { data } = await getQuestionByMajor(major);
 
