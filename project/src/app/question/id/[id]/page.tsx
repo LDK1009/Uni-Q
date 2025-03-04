@@ -4,7 +4,7 @@ import { Metadata } from "next";
 
 interface QuestionPageProps {
   params: {
-    id: string;
+    id: number;
   };
 }
 

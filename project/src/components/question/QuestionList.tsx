@@ -1,7 +1,7 @@
 "use client";
 
+import { styled } from '@mui/material';
 import QuestionItem from './QuestionItem';
-import styled from 'styled-components';
 import { Question } from '@/types/Question';
 
 interface QuestionListProps {

@@ -17,7 +17,11 @@ export async function postQuestion(question: Question) {
 
 ////////// 질문 여러개 삽입하기
 export async function postQuestions(questions: Question[]) {
-  const response = await supabase.from("questions").insert(questions).select();
-
+  const response = await supabase.from("questions").insert(questions);
+  if (!response.error) {
+    alert("성공");
+  } else {
+    alert("실패");
+  }
   return response;
 }
