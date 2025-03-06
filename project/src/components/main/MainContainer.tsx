@@ -34,7 +34,7 @@ const MainContainer = () => {
   return (
     <div>
       <Typography variant="h3" color="primary" align="center" sx={{ fontWeight: "bold" }}>
-        ALLIN
+        Uni-Q
       </Typography>
       <AccordionByCollegeContainer>
         {colleges.map((el, idx) => (
