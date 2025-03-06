@@ -3,54 +3,90 @@
 import { mixinFlex } from "@/styles/mixins";
 import { Question } from "@/types/Question";
 import { breakByDot } from "@/utils/textFormat";
-import { AccordionDetails, Accordion, styled, Typography, AccordionSummary, TextField } from "@mui/material";
+import { styled, TextField } from "@mui/material";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
-import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 import { useEffect, useState } from "react";
-import InsertLinkOutlinedIcon from "@mui/icons-material/InsertLinkOutlined";
+import { getCurrentUserUID } from "@/service/auth";
+import { getAnswers, postAnswer } from "@/service/table/answers";
+import { AnswerType } from "@/types/Answer";
+import CommonAccordion from "../common/CommonAccordion";
+import BookmarkList from "./BookmarkList";
+import AnotherAnswer from "./AnotherAnswer";
+import { postReference } from "@/service/table/reference_links";
 
 const QuestionItem = ({ itemData }: { itemData: Question }) => {
-  const { id, major, category, question, gpt_answer, tags, reference_links } = itemData;
+  const { id, major, category, question, gpt_answer, tags } = itemData;
   // 입력값 관련 상태
   const [inputText, setInputText] = useState("");
+  const [referenceInputText, setReferenceInputText] = useState("");
 
   // UI 열림/닫힘 관련 상태
   const [isAnswerOpen, setIsAnswerOpen] = useState(false);
   const [isGptAccordionOpen, setIsGptAccordionOpen] = useState(false);
-  const [isAnotherAnswerAccordionOpen, setIsAnotherAnswerAccordionOpen] = useState(false);
-  const [isReferenceAccordionOpen, setIsReferenceAccordionOpen] = useState(false);
+  const [isReferenceInputOpen, setIsReferenceInputOpen] = useState(false);
 
-  type OgDatasType = {
-    link: string;
-    title: string;
-    description: string;
-    image: string;
-  };
+  // 데이터 관련 상태
+  const [anoterAnswers, setAnoterAnswers] = useState<AnswerType[]>();
 
-  const [ogDatas, setOgDatas] = useState<OgDatasType[]>([]);
+  async function handleSubmit() {
+    const question_id = id;
+    const { data: user_id } = await getCurrentUserUID();
+
+    if (question_id && user_id && inputText) {
+      const submitData = {
+        question_id,
+        user_id,
+        answer: inputText,
+      };
+
+      const { error } = await postAnswer(submitData);
+
+      if (!error) {
+        alert("성공");
+        setInputText("");
+      } else {
+        alert("실패");
+      }
+    }
+  }
+
+  async function handleSubmitBookmark(link: string) {
+    const question_id = id;
+    const { data: user_id } = await getCurrentUserUID();
+
+    if (question_id && user_id && link) {
+      const postData = {
+        question_id,
+        user_id,
+        link,
+      };
+
+      const { error } = await postReference(postData);
+
+      if (!error) {
+        alert("성공");
+        setReferenceInputText("");
+        setIsReferenceInputOpen((prev)=>!prev);
+      } else {
+        alert("실패");
+      }
+    }
+  }
 
   useEffect(() => {
-    const getOgData = async (url: string) => {
-      const response = await fetch(`/api/og?url=${encodeURIComponent(url)}`);
-      const data = await response.json();
-      return data;
-    };
-
-    const referenceLinksOgDatas = reference_links.map(async (el) => {
-      const ogData = await getOgData(el);
-
-      return { link: el, ...ogData };
-    });
-
-    // 비동기 작업을 병렬적으로 실행(배열을 순회하며 비동기 작업을 실시하여 link 프로퍼티에 프로미스 객체가 담긴 배열이 생성된다. 이를 병렬적으로 처리하기 위해 promise.all()을 사용한다.)
-    Promise.all(referenceLinksOgDatas)
-      .then((results) => {
-        setOgDatas(results); // 데이터를 상태로 저장
-      })
-      .catch((error) => {
-        console.error("Open Graph 데이터 가져오기 실패:", error);
-      });
-  }, [reference_links]);
+    async function fetchAnotherAnswers() {
+      const question_id = id;
+      if (question_id) {
+        const { data, error } = await getAnswers(question_id);
+        if (data && !error) {
+          setAnoterAnswers(data);
+        } else {
+          alert("실패");
+        }
+      }
+    }
+    fetchAnotherAnswers();
+  }, [id]);
 
   return (
     <Container>
@@ -58,7 +94,7 @@ const QuestionItem = ({ itemData }: { itemData: Question }) => {
       <HeaderContainer>
         <HeaderWraper>
           <QuestionId>면접 질문 #{id}</QuestionId>
-          <BookmarkIcon onClick={()=>alert("준비중인 기능입니다!")}/>
+          <BookmarkIcon onClick={() => alert("준비중인 기능입니다!")} />
         </HeaderWraper>
         <Broadcast>
           {major} | {category}
@@ -89,7 +125,7 @@ const QuestionItem = ({ itemData }: { itemData: Question }) => {
             minRows={3}
             maxRows={10}
           />
-          <SubmitButton>등록</SubmitButton>
+          <SubmitButton onClick={handleSubmit}>등록</SubmitButton>
         </AnswerInpurtWrap>
       )}
       {/* 버튼 그룹 */}
@@ -108,68 +144,50 @@ const QuestionItem = ({ itemData }: { itemData: Question }) => {
       {/* 아코디언 그룹 */}
       <AccordionWrapper>
         {/* GPT 아코디언 */}
-        <GptAnswerAccordion expanded={isGptAccordionOpen} onClick={() => setIsGptAccordionOpen((prev) => !prev)}>
-          <AccordionSummary expandIcon={<ExpandMoreOutlinedIcon />} aria-controls="panel1-content" id="panel1-header">
-            <Typography component="span" sx={{ fontWeight: "bold" }}>
-              GPT-4o
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            {breakByDot(gpt_answer).map((el, idx) => {
-              return <div key={idx}>{el}</div>;
-            })}
-          </AccordionDetails>
-        </GptAnswerAccordion>
+        <CommonAccordion title="GPT-4o" isOpen={isGptAccordionOpen} setIsOpen={setIsGptAccordionOpen}>
+          {breakByDot(gpt_answer).map((el, idx) => {
+            return <div key={idx}>{el}</div>;
+          })}
+        </CommonAccordion>
 
         {/* 다른 지원자 답변 아코디언 */}
-        <AnotherAnswerAccordion
-          expanded={isAnotherAnswerAccordionOpen}
-          onClick={() => setIsAnotherAnswerAccordionOpen((prev) => !prev)}
-        >
-          <AccordionSummary expandIcon={<ExpandMoreOutlinedIcon />} aria-controls="panel1-content" id="panel1-header">
-            <Typography component="span" sx={{ fontWeight: "bold" }}>
-              다른 지원자 답변
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            {breakByDot(gpt_answer).map((el, idx) => {
-              return <div key={idx}>{el}</div>;
-            })}
-          </AccordionDetails>
-        </AnotherAnswerAccordion>
+        <CommonAccordion title="다른 지원자 답변">
+          <AnotherAnswersContainer>
+            {anoterAnswers?.map((el, idx) => (
+              <AnotherAnswer key={idx} user_id={el.user_id} answer={el.answer} />
+            ))}
+          </AnotherAnswersContainer>
+        </CommonAccordion>
 
         {/* 참고자료 아코디언 */}
-        <ReferenceAccordion
-          expanded={isReferenceAccordionOpen}
-          onClick={() => setIsReferenceAccordionOpen((prev) => !prev)}
-        >
-          <AccordionSummary expandIcon={<ExpandMoreOutlinedIcon />} aria-controls="panel1-content" id="panel1-header">
-            <Typography component="span" sx={{ fontWeight: "bold" }}>
-              참고자료
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            {/* 북마크 */}
-            <ReferenceLinksContainer>
-              {ogDatas.map((el, index) => (
-                <ReferenceLinkContainer key={index} href={el.link} target="_blank">
-                  <ReferenceImage
-                    src={el.image ? el.image : "/img/reference-image.png"}
-                    alt=""
-                    width={100}
-                    height={100}
-                  />
-                  <ReferenceLinkIconTextWrap>
-                    <InsertLinkOutlinedIcon />
-                    {el.title}
-                    {el.description}
-                  </ReferenceLinkIconTextWrap>
-                </ReferenceLinkContainer>
-              ))}
-              <GptAnswerButton>참고자료 추가하기</GptAnswerButton>
-            </ReferenceLinksContainer>
-          </AccordionDetails>
-        </ReferenceAccordion>
+        <CommonAccordion title="참고자료">
+          {/* 북마크 */}
+          {id && <BookmarkList question_id={id} />}
+          {/* 참고자료 추가 */}
+          <AddBookmarkWrap>
+            {isReferenceInputOpen && (
+              <AddBookmarkInputWrap>
+                <ReferenceInput
+                  value={referenceInputText}
+                  onClick={(e) => e.stopPropagation()}
+                  onChange={(e) => setReferenceInputText(e.target.value)}
+                  label="참고자료 링크"
+                  placeholder="https://example.com/"
+                  variant="outlined"
+                />
+                <SubmitButton onClick={() => handleSubmitBookmark(referenceInputText)}>등록</SubmitButton>
+              </AddBookmarkInputWrap>
+            )}
+            <AddBookmarkButton
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsReferenceInputOpen((prev) => !prev);
+              }}
+            >
+              {isReferenceInputOpen ? "취소" : "참고자료 추가하기"}
+            </AddBookmarkButton>
+          </AddBookmarkWrap>
+        </CommonAccordion>
       </AccordionWrapper>
     </Container>
   );
@@ -285,55 +303,27 @@ const AccordionWrapper = styled("div")`
   row-gap: 8px;
 `;
 
-const GptAnswerAccordion = styled(Accordion)`
-  width: 100%;
-  border-radius: 8px;
-  box-shadow: none !important;
-  background-color: ${({ theme }) => theme.palette.gray[25]};
-  &::before {
-    display: none;
-  }
+const ReferenceInput = styled(TextField)`
+  flex: 4;
 `;
 
-const AnotherAnswerAccordion = styled(GptAnswerAccordion)``;
-
-const ReferenceAccordion = styled(AnotherAnswerAccordion)``;
-
-const ReferenceLinksContainer = styled("div")`
-  ${mixinFlex("column")};
-  flex-wrap: wrap;
-  width: 100%;
-  row-gap: 16px;
-`;
-
-const ReferenceLinkContainer = styled("a")`
-  ${mixinFlex("row")};
-  column-gap: 8px;
-  flex: 1;
-  padding: 12px;
-  border-radius: 8px;
-  box-shadow: 0px 2px 3px ${({ theme }) => theme.palette.gray[50]};
-  font-size: 14px;
-  color: black;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 14px;
-  line-height: 150%;
-  background-color: ${({ theme }) => theme.palette.gray[0]};
-`;
-
-const ReferenceImage = styled("img")`
-  width: 100px;
-  height: 100px;
-  border-radius: 8px;
-`;
-
-const ReferenceLinkIconTextWrap = styled("div")`
+const AnotherAnswersContainer = styled("div")`
   ${mixinFlex("column")}
   align-items:start;
-  row-gap: 4px;
-  & svg {
-    color: ${({ theme }) => theme.palette.primary.main};
-    transform: rotateZ(-30deg);
-  }
+  justify-content: start;
+  row-gap: 24px;
 `;
+
+const AddBookmarkWrap = styled("div")`
+  ${mixinFlex("column")};
+  margin-top:32px;
+  width: 100%;
+  row-gap: 8px;
+`;
+
+const AddBookmarkInputWrap = styled("div")`
+  ${mixinFlex("row")};
+  width: 100%;
+  column-gap: 8px;
+`;
+const AddBookmarkButton = styled(GptAnswerButton)``;
