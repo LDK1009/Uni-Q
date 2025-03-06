@@ -9,10 +9,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Uni-Q | 대학교 학과별 면접 질문 플랫폼",
     description: "수시 & 편입 & 전과 학과별 면접을 위한 맞춤형 질문 카드 제공! AI 기반 모범 답변과 카카오톡 알림으로 효과적인 면접 준비를 시작하세요.",
-    url: "https://uni-q.kr", // 실제 배포 URL로 변경
+    url: "https://uni-q.site", // 실제 배포 URL로 변경
     images: [
       {
-        url: "https://uni-q.kr/img/logo-512.png", // 실제 로고 이미지 경로로 변경
+        url: "https://uni-q.site/img/logo-512.png", // 실제 로고 이미지 경로로 변경
         width: 512,
         height: 512,
         alt: "Uni-Q 로고",
