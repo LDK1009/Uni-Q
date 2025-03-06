@@ -24,7 +24,6 @@ const page = () => {
       gpt_answer:
         "가비지 컬렉션은 프로그래밍 언어에서 더 이상 사용되지 않는 메모리를 자동으로 회수하는 기능입니다. 이를 통해 메모리 누수를 방지하고, 개발자가 메모리 관리를 직접 하지 않아도 되도록 합니다.",
       tags: ["가비지 컬렉션", "메모리 관리", "컴퓨터공학"],
-      reference_links: ["https://ko.wikipedia.org/wiki/가비지_컬렉션"],
       owner_id: "a4632837-1a0d-4cb1-835f-dd3a1f78740b",
     },
     {
@@ -35,7 +34,6 @@ const page = () => {
       gpt_answer:
         "동기식 통신은 송수신 장치의 클럭 신호를 동기화하여 데이터를 전송하는 방식이며, 비동기식 통신은 각 데이터 비트에 시작 및 종료 비트를 추가하여 독립적으로 전송하는 방식입니다.",
       tags: ["동기식 통신", "비동기식 통신", "컴퓨터공학"],
-      reference_links: ["https://ko.wikipedia.org/wiki/동기식_통신", "https://ko.wikipedia.org/wiki/비동기식_통신"],
       owner_id: "a4632837-1a0d-4cb1-835f-dd3a1f78740b",
     },
     {
@@ -46,7 +44,6 @@ const page = () => {
       gpt_answer:
         "소켓 프로그래밍은 네트워크 상에서 데이터 통신을 위해 소켓을 사용하여 프로세스 간의 통신을 구현하는 방법입니다. 클라이언트와 서버가 각각 소켓을 통해 데이터를 송수신합니다.",
       tags: ["소켓 프로그래밍", "네트워크", "컴퓨터공학"],
-      reference_links: ["https://ko.wikipedia.org/wiki/소켓_프로그래밍"],
       owner_id: "a4632837-1a0d-4cb1-835f-dd3a1f78740b",
     },
   ];
