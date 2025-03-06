@@ -238,7 +238,9 @@ const Broadcast = styled("div")`
 
 const TagWrap = styled("div")`
   ${mixinFlex("row")};
+  justify-content:start;
   column-gap: 8px;
+  flex-wrap:wrap;
 `;
 
 const Tag = styled("a")`

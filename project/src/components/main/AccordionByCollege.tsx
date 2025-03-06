@@ -26,7 +26,7 @@ const AccordionByCollege = ({ title, majors, Icon }: AccordionByCollegeType) => 
         </Summary>
         <Detail>
           {majors.map((el, idx) => (
-            <DetailBox key={idx} onClick={()=>router.push(`/question/${el}`)}>
+            <DetailBox key={idx} onClick={()=>router.push(`/question/major/${el}`)}>
               {Icon}
               {el}
             </DetailBox>
