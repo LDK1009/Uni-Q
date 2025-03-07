@@ -240,6 +240,7 @@ const TagWrap = styled("div")`
   ${mixinFlex("row")};
   justify-content:start;
   column-gap: 8px;
+  row-gap:4px;
   flex-wrap:wrap;
 `;
 
