@@ -1,14 +1,25 @@
 "use client";
 
-import { signIn } from "@/service/auth";
+import { getCurrentUserEmail, signIn } from "@/service/auth";
 
 const page = () => {
-  const email = "m3088787@gmail.com";
-  const password = "au95ju04!!";
+  async function handleSignIn() {
+    const { error } = await signIn();
 
+    if (error) {
+      alert("오류 발생");
+    }
+  }
+  
+  async function testFunc(){
+    const {data} = await getCurrentUserEmail();
+    console.log(data);
+  }
+
+  testFunc();
   return (
     <div>
-      <button onClick={() => signIn({ email, password })}>로그인</button>
+      <button onClick={() => handleSignIn()}>카카오 로그인</button>
     </div>
   );
 };
