@@ -3,7 +3,7 @@
 import { mixinFlex } from "@/styles/mixins";
 import { Question } from "@/types/Question";
 import { breakByDot } from "@/utils/textFormat";
-import { styled, TextField } from "@mui/material";
+import { Link, styled, TextField } from "@mui/material";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import { useEffect, useState } from "react";
 import { getCurrentUserUID } from "@/service/auth";
@@ -244,7 +244,7 @@ const TagWrap = styled("div")`
   flex-wrap:wrap;
 `;
 
-const Tag = styled("a")`
+const Tag = styled(Link)`
   background-color: #dbeafe;
   color: ${({ theme }) => theme.palette.primary.main};
   padding: 4px 8px;

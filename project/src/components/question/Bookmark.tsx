@@ -2,6 +2,7 @@ import { styled, Typography } from "@mui/material";
 import React from "react";
 import InsertLinkOutlinedIcon from "@mui/icons-material/InsertLinkOutlined";
 import { mixinFlex } from "@/styles/mixins";
+import Link from "next/link";
 
 interface PropsType {
   link: string;
@@ -27,7 +28,7 @@ const Bookmark = ({ link, imgSrc, title, description }: PropsType) => {
 
 export default Bookmark;
 
-const Container = styled("a")`
+const Container = styled(Link)`
   width: 100%;
   border-radius: 8px;
   box-shadow: 0px 2px 3px ${({ theme }) => theme.palette.gray[50]};

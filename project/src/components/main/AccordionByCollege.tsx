@@ -4,7 +4,7 @@ import { Accordion, AccordionDetails, AccordionSummary, styled, Typography } fro
 import React from "react";
 import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 import { mixinFlex } from "@/styles/mixins";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 type AccordionByCollegeType = {
   title: string;
@@ -13,8 +13,6 @@ type AccordionByCollegeType = {
 };
 
 const AccordionByCollege = ({ title, majors, Icon }: AccordionByCollegeType) => {
-  const router = useRouter();
-
   return (
     <Container>
       <CollegeAccordion>
@@ -26,7 +24,7 @@ const AccordionByCollege = ({ title, majors, Icon }: AccordionByCollegeType) => 
         </Summary>
         <Detail>
           {majors.map((el, idx) => (
-            <DetailBox key={idx} onClick={()=>router.push(`/question/major/${el}`)}>
+            <DetailBox key={idx} href={`/question/major/${el}`}>
               {Icon}
               {el}
             </DetailBox>
@@ -72,12 +70,14 @@ const Detail = styled(AccordionDetails)`
   margin-left: 16px;
 `;
 
-const DetailBox = styled("div")`
+const DetailBox = styled(Link)`
   ${mixinFlex("row")}
   width:100%;
   justify-content: start;
   column-gap: 8px;
   font-size: 14px;
+  text-decoration: none;
+  color: black;
   & svg {
     width: 16px;
     height: 16px;
