@@ -11,6 +11,7 @@ interface userType {
 interface AuthStore {
   user: userType;
   setUser: (user: userType) => void;
+  initUser: () => void;
 }
 
 export const useAuthStore = create<AuthStore>()(
@@ -22,6 +23,14 @@ export const useAuthStore = create<AuthStore>()(
         uid: "",
       },
       setUser: (user) => set({ user }),
+      initUser: () =>
+        set({
+          user: {
+            isSignIn: false,
+            email: "",
+            uid: "",
+          },
+        }),
     }),
     {
       name: "auth-storage", // localStorage에 저장될 키 이름

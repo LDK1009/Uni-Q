@@ -1,3 +1,4 @@
+import api from "@/lib/apiClient";
 import { supabase } from "@/lib/supabaseClient";
 
 ////////// 로그인
@@ -9,10 +10,21 @@ export async function signIn() {
     },
   });
 
-  console.log(response);
-  debugger;
+  return response;
+}
+
+////////// 로그아웃
+export async function signOut() {
+  const response = await supabase.auth.signOut();
 
   return response;
+}
+
+////////// 회원탈퇴
+export async function deleteUser(uid : string) {
+  const response = await api.delete(`/users?uid=${uid}`);
+
+  return response.data;
 }
 
 ////////// 유저 로그인 여부 확인하기

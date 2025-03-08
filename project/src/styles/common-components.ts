@@ -1,4 +1,4 @@
-import { Button, styled } from "@mui/material";
+import { Button, styled, Typography } from "@mui/material";
 import Link from "next/link";
 
 export const CommonButton = styled(Button)`
@@ -14,4 +14,8 @@ export const CommonButton = styled(Button)`
 export const CommonLink = styled(Link)`
   text-decoration: none;
   color: ${({ theme }) => theme.palette.gray[900]};
+`;
+
+export const CommonGrayTypography = styled(Typography)`
+  color: ${({ theme }) => theme.palette.gray[400]};
 `;

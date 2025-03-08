@@ -6,4 +6,5 @@ export const mixinFlex = (direction : "row" | "column") => css`
   flex-direction: ${direction};
   align-items: center;
   justify-content: center;
+  width: 100%;
 `;
