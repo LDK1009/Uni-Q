@@ -6,7 +6,7 @@ export async function signIn() {
   const response = await supabase.auth.signInWithOAuth({
     provider: "kakao",
     options: {
-      redirectTo: "http://localhost:3000/auth/sign-in/success",
+      redirectTo: `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/sign-in/success`,
     },
   });
 
