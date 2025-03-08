@@ -1,6 +1,7 @@
 import ThemeProviderWrapper from "@/styles/ThemeProviderWrapper";
 import type { Metadata } from "next";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
+import CommonBottomNavigation from "@/components/common/CommonBottomNavigation";
 
 export const metadata: Metadata = {
   manifest: "/manifest.json",
@@ -42,6 +43,7 @@ export default function RootLayout({
         <AppRouterCacheProvider>
             <ThemeProviderWrapper>
               {children}
+              <CommonBottomNavigation/>
             </ThemeProviderWrapper>
         </AppRouterCacheProvider>
       </body>
