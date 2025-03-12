@@ -32,5 +32,6 @@ const Container = styled("div")`
 
 const ImageIdWrap = styled("div")`
   ${mixinFlex("row")};
+  justify-content: start;
   column-gap: 8px;
 `;

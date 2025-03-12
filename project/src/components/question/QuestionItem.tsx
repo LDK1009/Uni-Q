@@ -199,6 +199,7 @@ const Container = styled("div")`
   ${mixinFlex("column")};
   align-items: start;
   padding: 24px;
+  box-sizing:border-box;
   border-radius: 8px;
   row-gap: 24px;
 `;

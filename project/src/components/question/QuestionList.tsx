@@ -5,10 +5,11 @@ import QuestionItem from "./QuestionItem";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css"; // 기본 스타일 적용
 import { Mousewheel } from "swiper/modules";
+import { styled } from "@mui/material";
 
 const QuestionList = ({ data }: { data: Question[] }) => {
   return (
-    <div>
+    <Container>
       <Swiper
         spaceBetween={50}
         slidesPerView={1}
@@ -21,8 +22,12 @@ const QuestionList = ({ data }: { data: Question[] }) => {
           </SwiperSlide>
         ))}
       </Swiper>
-    </div>
+    </Container>
   );
 };
 
 export default QuestionList;
+
+const Container = styled("div")
+`
+`
