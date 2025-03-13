@@ -4,6 +4,7 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import CommonBottomNavigation from "@/components/common/CommonBottomNavigation";
 import CommonModal from "@/components/common/CommonModal";
 import ClientSnackbarProvider from "@/lib/ClientSnackbarProvider";
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 export const metadata: Metadata = {
   manifest: "/manifest.json",
@@ -53,6 +54,7 @@ export default function RootLayout({
           </ThemeProviderWrapper>
         </AppRouterCacheProvider>
       </body>
+      <GoogleAnalytics gaId="AW-16921971256" />
     </html>
   );
 }
